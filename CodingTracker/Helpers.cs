@@ -80,7 +80,7 @@ public static class Helpers
         }
 
         Console.WriteLine(message);
-        if (skipEnter == true) return;
+        if (skipReadLine == true) return;
         Console.ReadLine();
     }
 
