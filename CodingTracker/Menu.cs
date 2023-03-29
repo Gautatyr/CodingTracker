@@ -31,7 +31,7 @@ public static class Menu
                 GetSessionsHistory();
                 break;*/
             case "2":
-                AddSession();
+                InsertSession(inputSessionDate(), inputSessionTime()); // Pass the info to the db
                 break;
 /*            case "3":
                 DeleteSession();
@@ -45,10 +45,5 @@ public static class Menu
                 displayMenu();
                 break;
         }
-    }
-
-    private static void AddSession()
-    {
-        InsertSession(inputSessionDate(), inputSessionTime()); // Pass the info to the db
     }
 }

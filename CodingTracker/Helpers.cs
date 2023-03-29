@@ -36,6 +36,8 @@ public static class Helpers
 
         double sessionDuration;
 
+        // This is needed to avoid asking the user about the date of start and date of end
+        // in case a session is longer than a day
         if (sessionEnd < sessionStart)
         {
             DateTime defaultTime = DateTime.Parse("01-01-01");
