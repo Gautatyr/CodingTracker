@@ -12,14 +12,22 @@ public static class Helpers
     public static string InputSessionDate()
     {
         Console.WriteLine("\nPlease write the date of the session in the 'dd-mm-yy' format.\n");
+
         string sessionDate = Console.ReadLine();
+
+        while (!DateTime.TryParseExact(sessionDate, "d-M-yy", System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None, out _))
+        {
+            Console.WriteLine("\n|---> Invalid Input ! Please use the 'dd-MM-yy' format and try again ! <---|\n");
+            sessionDate = Console.ReadLine();
+        }
 
         return sessionDate;
     }
 
     public static double InputSessionTime()
     {
-        Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
+        Console.WriteLine("\nPlease write the time you started the session in the 'h:mm' format\n");
 
         if(!DateTime.TryParseExact(Console.ReadLine(), "H:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionStart))
         {
@@ -66,7 +74,7 @@ public static class Helpers
 
         foreach (CodingSessions session in codingSessions)
         {
-            Console.WriteLine($"| {session.Id} | {session.Date.ToString("dd-MM-yy")} | {session.TimeSpentCoding} |");
+            Console.WriteLine($"| {session.Id} | {session.Date:dd-MM-yy} | {session.TimeSpentCoding} |");
             Console.WriteLine("-----------------------");
         }
     }

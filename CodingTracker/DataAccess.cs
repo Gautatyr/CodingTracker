@@ -39,7 +39,7 @@ public static class DataAccess
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(minutesSpentCoding);
-            string timeSpentCoding = hoursSpentCoding.Hours.ToString() + "h" + hoursSpentCoding.Minutes.ToString();
+            string timeSpentCoding = $"{hoursSpentCoding.Hours.ToString()}h{hoursSpentCoding.Minutes.ToString()}mn";
 
             connection.Open();
 
@@ -76,7 +76,7 @@ public static class DataAccess
                     codingSessions.Add(new CodingSessions
                     {
                         Id = reader.GetInt32(0),
-                        Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("en-US")),
+                        Date = DateTime.ParseExact(reader.GetString(1), "d-M-yy", new CultureInfo("en-US")),
                         TimeSpentCoding = reader.GetString(2)
                     });
                 }
