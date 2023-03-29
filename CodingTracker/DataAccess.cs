@@ -10,6 +10,7 @@ using System.Drawing.Text;
 using CodingTracker.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
+using static CodingTracker.Helpers;
 
 namespace CodingTracker;
 
@@ -34,13 +35,13 @@ public static class DataAccess
         }
     }
 
-    public static void InsertSession(string date, double minutesSpentCoding)
+    public static void InsertSession()
     {
+        string date = InputSessionDate();
+        string timeSpentCoding = InputSessionTime();
+
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
-            TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(minutesSpentCoding);
-            string timeSpentCoding = $"{hoursSpentCoding.Hours}h{hoursSpentCoding.Minutes}mn";
-
             connection.Open();
 
             SqliteCommand tableCommand = connection.CreateCommand();
@@ -108,6 +109,34 @@ public static class DataAccess
 
             return rowCount;
         }
+    }
+
+    public static int UpdateSession(int id)
+    {
+        int checkQuery = 0;
+
+        using (SqliteConnection connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+
+            var checkCommand = connection.CreateCommand();
+            checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM CodingSessions WHERE Id = {id})";
+            
+            SqliteCommand tableCommand = connection.CreateCommand();
+            checkQuery = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+            string date = InputSessionDate();
+            string timeSpentCoding = InputSessionTime();
+
+            tableCommand.CommandText =
+                $@"UPDATE CodingSessions SET Date = '{date}', TimeSpentCoding = '{timeSpentCoding}' WHERE Id = {id}";
+
+            tableCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        return checkQuery;
     }
 }
 

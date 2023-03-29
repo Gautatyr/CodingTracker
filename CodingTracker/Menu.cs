@@ -30,31 +30,32 @@ public static class Menu
                 break;
             case "1":
                 Console.Clear();
-                DisplaySessions(GetSessionsHistory());
-                Console.WriteLine("\nPress Enter to go back to the menu");
-                Console.ReadLine();
+                DisplaySessions(GetSessionsHistory(), "\nPress Enter to go back to the menu");
                 break;
             case "2":
-                InsertSession(InputSessionDate(), InputSessionTime()); 
-                Console.WriteLine("Session successfully added ! Press Enter to go back to the main menu");
-                Console.ReadLine();
+                InsertSession();
+                DisplaySessions(GetSessionsHistory(), "\nSession successfully added ! Press Enter to go back to the main menu");
                 break;
             case "3":
-                Console.Clear();
-                DisplaySessions(GetSessionsHistory());
-                int id = GetNumberInput("\nType in the id of the session you want to delete\n");
+                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Delete\n", true);
+                int id = GetNumberInput();
                 while (DeleteSession(id) == 0)
                 {
                     Console.WriteLine($"\n|---> Record with Id {id} doesn't exist. Please retry. <---|\n");
-                    id = GetNumberInput("\nType in the id of the session you want to delete\n");
+                    id = GetNumberInput("\nType in the id of the session you want to Delete\n");
                 }
-                DisplaySessions(GetSessionsHistory());
-                Console.WriteLine($"\nThe session with id:{id} has been deleted ! Press Enter to return to the main menu.\n");
-                Console.ReadLine();
+                DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been deleted ! Press Enter to return to the main menu.\n");
                 break;
-            /*            case "4":
-                            UpdateSession();
-                            break;*/
+            case "4":
+                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Update\n", true);
+                id = GetNumberInput();
+                while (UpdateSession(id) == 0)
+                {
+                    Console.WriteLine($"\n|---> Record with Id {id} doesn't exist. Please retry. <---|\n");
+                    id = GetNumberInput("\nType in the id of the session you want to Update\n");
+                }
+                DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been updated ! Press Enter to return to the main menu.\n");
+                break;
             default:
                 Console.Clear();
                 Console.WriteLine("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");

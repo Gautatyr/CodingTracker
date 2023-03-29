@@ -25,7 +25,7 @@ public static class Helpers
         return sessionDate;
     }
 
-    public static double InputSessionTime()
+    public static string InputSessionTime()
     {
         Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
 
@@ -61,14 +61,14 @@ public static class Helpers
         {
             sessionDuration = (sessionEnd - sessionStart).TotalMinutes;
         }
-        
-        Console.Clear();
-        Console.WriteLine("Session successfully added !");
 
-        return sessionDuration;
+        TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(sessionDuration);
+        string timeSpentCoding = $"{hoursSpentCoding.Hours}h{hoursSpentCoding.Minutes}mn";
+
+        return timeSpentCoding;
     }
 
-    public static void DisplaySessions(List<CodingSessions> codingSessions)
+    public static void DisplaySessions(List<CodingSessions> codingSessions, string message = "", bool skipReadLine = false)
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
@@ -78,9 +78,13 @@ public static class Helpers
             Console.WriteLine($"|  {session.Id}  |  {session.Date:dd-MM-yy}  |  {session.TimeSpentCoding}   ");
             Console.WriteLine("---------------------------------");
         }
+
+        Console.WriteLine(message);
+        if (skipEnter == true) return;
+        Console.ReadLine();
     }
 
-    public static int GetNumberInput(string message)
+    public static int GetNumberInput(string message = "")
     {
         Console.WriteLine(message);
 
