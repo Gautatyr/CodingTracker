@@ -27,11 +27,11 @@ public static class Menu
                 Console.WriteLine("\nGoodbye !");
                 Environment.Exit(0);
                 break;
-/*            case "1":
-                GetSessionsHistory();
-                break;*/
+            case "1":
+                DisplaySessions(GetSessionsHistory());
+                break;
             case "2":
-                InsertSession(inputSessionDate(), inputSessionTime()); // Pass the info to the db
+                InsertSession(InputSessionDate(), InputSessionTime()); // Pass the info to the db
                 break;
 /*            case "3":
                 DeleteSession();
