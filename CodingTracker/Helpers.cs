@@ -25,7 +25,6 @@ public static class Helpers
             Console.WriteLine("\n|---> Invalid Input ! Please write the the you started the session in the 'hh-mm' format ! <---|\n");
             return inputSessionTime();
         }
-        
 
         Console.WriteLine("\nPlease write the time you ended the session in the 'hh-mm' format\n");
 
@@ -35,9 +34,25 @@ public static class Helpers
             return inputSessionTime();
         }
 
-        double sessionDuration = (sessionEnd - sessionStart).TotalMinutes;
+        double sessionDuration;
 
+        if (sessionEnd < sessionStart)
+        {
+            DateTime defaultTime = DateTime.Parse("01-01-01");
+            DateTime defaultTimeTomorrow = DateTime.Parse("02-01-01");
+
+            DateTime properStartTime = defaultTime.Date.Add(sessionStart.TimeOfDay);
+            DateTime properEndTime = defaultTimeTomorrow.Date.Add(sessionEnd.TimeOfDay);
+
+            sessionDuration = (properEndTime - properStartTime).TotalMinutes;
+        }
+        else
+        {
+            sessionDuration = (sessionEnd - sessionStart).TotalMinutes;
+        }
+        
         Console.Clear();
+        Console.WriteLine("Session successfully added !");
 
         return sessionDuration;
     }
