@@ -13,4 +13,8 @@
     <PackageReference Include="Uno.UI" Version="4.8.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Menu.cs" />
+  </ItemGroup>
+
 </Project>

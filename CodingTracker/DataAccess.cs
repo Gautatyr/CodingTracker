@@ -19,10 +19,30 @@ public static class DataAccess
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             connection.Open();
+
             SqliteCommand tableCommand = connection.CreateCommand();
 
             tableCommand.CommandText =
-                $@"CREATE TABLE IF NOT EXISTS Coding (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, TimeSpentCoding INTEGER)";
+                $@"CREATE TABLE IF NOT EXISTS CodingSessions (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT, MinutesSpentCoding INTEGER)";
+
+            tableCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+    }
+
+    public static void InsertSession(string date, double minutesSpentCoding)
+    {
+        string connectionString = ConfigurationManager.AppSettings.Get("connectionString");
+
+        using (SqliteConnection connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+
+            SqliteCommand tableCommand = connection.CreateCommand();
+
+            tableCommand.CommandText =
+                $@"INSERT INTO CodingSessions(date, minutesSpentCoding) VALUES('{date}', {minutesSpentCoding})";
 
             tableCommand.ExecuteNonQuery();
 
@@ -30,3 +50,5 @@ public static class DataAccess
         }
     }
 }
+
+
