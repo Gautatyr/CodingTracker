@@ -39,7 +39,7 @@ public static class DataAccess
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
             TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(minutesSpentCoding);
-            string timeSpentCoding = $"{hoursSpentCoding.Hours.ToString()}h{hoursSpentCoding.Minutes.ToString()}mn";
+            string timeSpentCoding = $"{hoursSpentCoding.Hours}h{hoursSpentCoding.Minutes}mn";
 
             connection.Open();
 

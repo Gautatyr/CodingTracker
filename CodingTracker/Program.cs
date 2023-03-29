@@ -7,8 +7,6 @@ using static CodingTracker.Menu;
 
 InitializeDatabase();
 
-Console.WriteLine("\nWelcome to your Coding Tracker App !\n\n");
-
 bool closeApp = false;
 
 do

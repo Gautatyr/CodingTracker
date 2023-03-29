@@ -12,6 +12,7 @@ public static class Menu
 {
     public static void displayMenu()
     {
+        Console.Clear();
         Console.WriteLine("\nMAIN MENU\n");
         Console.WriteLine("- Type 0 to Close the Application.");
         Console.WriteLine("- Type 1 to View your coding sessions history.");
@@ -28,10 +29,13 @@ public static class Menu
                 Environment.Exit(0);
                 break;
             case "1":
+                Console.Clear();
                 DisplaySessions(GetSessionsHistory());
+                Console.WriteLine("\nPress Enter to go back to the menu");
+                Console.ReadLine();
                 break;
             case "2":
-                InsertSession(InputSessionDate(), InputSessionTime()); // Pass the info to the db
+                InsertSession(InputSessionDate(), InputSessionTime()); 
                 break;
 /*            case "3":
                 DeleteSession();

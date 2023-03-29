@@ -27,9 +27,9 @@ public static class Helpers
 
     public static double InputSessionTime()
     {
-        Console.WriteLine("\nPlease write the time you started the session in the 'h:mm' format\n");
+        Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
 
-        if(!DateTime.TryParseExact(Console.ReadLine(), "H:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionStart))
+        if(!DateTime.TryParseExact(Console.ReadLine(), "H:m", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionStart))
         {
             Console.WriteLine("\n|---> Invalid Input ! Please write the the you started the session in the 'hh-mm' format ! <---|\n");
             return InputSessionTime();
@@ -37,7 +37,7 @@ public static class Helpers
 
         Console.WriteLine("\nPlease write the time you ended the session in the 'hh-mm' format\n");
 
-        if (!DateTime.TryParseExact(Console.ReadLine(), "H:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionEnd))
+        if (!DateTime.TryParseExact(Console.ReadLine(), "H:m", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionEnd))
         {
             Console.WriteLine("\n|---> Invalid Input ! Please write the the you started the session in the 'hh-mm' format ! <---|\n");
             return InputSessionTime();
@@ -70,12 +70,12 @@ public static class Helpers
 
     public static void DisplaySessions(List<CodingSessions> codingSessions)
     {
-        Console.WriteLine("-----------------------");
+        Console.WriteLine("-------------------------");
 
         foreach (CodingSessions session in codingSessions)
         {
             Console.WriteLine($"| {session.Id} | {session.Date:dd-MM-yy} | {session.TimeSpentCoding} |");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("-------------------------");
         }
     }
 }
