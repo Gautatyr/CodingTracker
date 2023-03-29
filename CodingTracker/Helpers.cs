@@ -29,37 +29,49 @@ public static class Helpers
     {
         Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
 
-        if(!DateTime.TryParseExact(Console.ReadLine(), "H:m", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionStart))
+        string sessionStart = Console.ReadLine();
+        DateTime sessionStartFormated;
+
+        while (!DateTime.TryParseExact(sessionStart, "H:m", System.Globalization.CultureInfo.InvariantCulture,
+            System.Globalization.DateTimeStyles.None, out sessionStartFormated))
         {
-            Console.WriteLine("\n|---> Invalid Input ! Please write the the you started the session in the 'hh-mm' format ! <---|\n");
-            return InputSessionTime();
+            Console.Clear();
+            Console.WriteLine("\n|---> Invalid Input ! <---|\n");
+            Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
+            sessionStart = Console.ReadLine();
         }
 
-        Console.WriteLine("\nPlease write the time you ended the session in the 'hh-mm' format\n");
+        Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format\n");
 
-        if (!DateTime.TryParseExact(Console.ReadLine(), "H:m", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out var sessionEnd))
+        string sessionEnd = Console.ReadLine();
+        DateTime sessionEndFormated;
+
+        while (!DateTime.TryParseExact(sessionEnd, "H:m", System.Globalization.CultureInfo.InvariantCulture,
+            System.Globalization.DateTimeStyles.None, out sessionEndFormated))
         {
-            Console.WriteLine("\n|---> Invalid Input ! Please write the the you started the session in the 'hh-mm' format ! <---|\n");
-            return InputSessionTime();
+            Console.Clear();
+            Console.WriteLine("\n|---> Invalid Input ! <---|\n");
+            Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format\n");
+            sessionEnd = Console.ReadLine();
         }
 
         double sessionDuration;
 
         // This is needed to avoid asking the user about the date of start and date of end
         // in case a session is longer than a day
-        if (sessionEnd < sessionStart)
+        if (sessionEndFormated < sessionStartFormated)
         {
             DateTime defaultTime = DateTime.Parse("01-01-01");
             DateTime defaultTimeTomorrow = DateTime.Parse("02-01-01");
 
-            DateTime properStartTime = defaultTime.Date.Add(sessionStart.TimeOfDay);
-            DateTime properEndTime = defaultTimeTomorrow.Date.Add(sessionEnd.TimeOfDay);
+            DateTime properStartTime = defaultTime.Date.Add(sessionStartFormated.TimeOfDay);
+            DateTime properEndTime = defaultTimeTomorrow.Date.Add(sessionEndFormated.TimeOfDay);
 
             sessionDuration = (properEndTime - properStartTime).TotalMinutes;
         }
         else
         {
-            sessionDuration = (sessionEnd - sessionStart).TotalMinutes;
+            sessionDuration = (sessionEndFormated - sessionStartFormated).TotalMinutes;
         }
 
         TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(sessionDuration);

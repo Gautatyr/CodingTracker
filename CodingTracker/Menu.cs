@@ -10,7 +10,7 @@ namespace CodingTracker;
 
 public static class Menu
 {
-    public static void displayMenu()
+    public static void displayMenu(string message = "")
     {
         Console.Clear();
         Console.WriteLine("\nMAIN MENU\n");
@@ -19,6 +19,7 @@ public static class Menu
         Console.WriteLine("- Type 2 to Add a coding session.");
         Console.WriteLine("- Type 3 to Delete a session history.");
         Console.WriteLine("- Type 4 to Update a session history.");
+        Console.WriteLine(message);
 
         string input = Console.ReadLine(); 
 
@@ -57,9 +58,7 @@ public static class Menu
                 DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been updated ! Press Enter to return to the main menu.\n");
                 break;
             default:
-                Console.Clear();
-                Console.WriteLine("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");
-                displayMenu();
+                displayMenu("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");
                 break;
         }
     }
