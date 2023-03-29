@@ -77,7 +77,7 @@ public static class DataAccess
                     {
                         Id = reader.GetInt32(0),
                         Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yy", new CultureInfo("en-US")),
-                        MinutesSpentCoding = reader.GetDouble(2)
+                        TimeSpentCoding = reader.GetString(2)
                     });
                 }
             }

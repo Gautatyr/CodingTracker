@@ -62,13 +62,12 @@ public static class Helpers
 
     public static void DisplaySessions(List<CodingSessions> codingSessions)
     {
-        Console.WriteLine("-------------------------------------------------------");
+        Console.WriteLine("-----------------------");
 
         foreach (CodingSessions session in codingSessions)
         {
-            Console.WriteLine($"{session.Id} | {session.Date.ToString("dd-MM-yy")} | {session.MinutesSpentCoding} |");
+            Console.WriteLine($"| {session.Id} | {session.Date.ToString("dd-MM-yy")} | {session.TimeSpentCoding} |");
+            Console.WriteLine("-----------------------");
         }
-
-        Console.WriteLine("-------------------------------------------------------");
     }
 }

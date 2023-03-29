@@ -10,5 +10,5 @@ public class CodingSessions
 {
     public int Id { get; set; } 
     public DateTime Date { get; set; } 
-    public double MinutesSpentCoding { get; set; }
+    public string TimeSpentCoding { get; set; }
 }
