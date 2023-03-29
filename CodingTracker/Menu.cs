@@ -36,13 +36,25 @@ public static class Menu
                 break;
             case "2":
                 InsertSession(InputSessionDate(), InputSessionTime()); 
+                Console.WriteLine("Session successfully added ! Press Enter to go back to the main menu");
+                Console.ReadLine();
                 break;
-/*            case "3":
-                DeleteSession();
-                break;*/
-/*            case "4":
-                UpdateSession();
-                break;*/
+            case "3":
+                Console.Clear();
+                DisplaySessions(GetSessionsHistory());
+                int id = GetNumberInput("\nType in the id of the session you want to delete\n");
+                while (DeleteSession(id) == 0)
+                {
+                    Console.WriteLine($"\n|---> Record with Id {id} doesn't exist. Please retry. <---|\n");
+                    id = GetNumberInput("\nType in the id of the session you want to delete\n");
+                }
+                DisplaySessions(GetSessionsHistory());
+                Console.WriteLine($"\nThe session with id:{id} has been deleted ! Press Enter to return to the main menu.\n");
+                Console.ReadLine();
+                break;
+            /*            case "4":
+                            UpdateSession();
+                            break;*/
             default:
                 Console.Clear();
                 Console.WriteLine("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");

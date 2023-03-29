@@ -70,12 +70,30 @@ public static class Helpers
 
     public static void DisplaySessions(List<CodingSessions> codingSessions)
     {
-        Console.WriteLine("-------------------------");
+        Console.Clear();
+        Console.WriteLine("---------------------------------");
 
         foreach (CodingSessions session in codingSessions)
         {
-            Console.WriteLine($"| {session.Id} | {session.Date:dd-MM-yy} | {session.TimeSpentCoding} |");
-            Console.WriteLine("-------------------------");
+            Console.WriteLine($"|  {session.Id}  |  {session.Date:dd-MM-yy}  |  {session.TimeSpentCoding}   ");
+            Console.WriteLine("---------------------------------");
         }
+    }
+
+    public static int GetNumberInput(string message)
+    {
+        Console.WriteLine(message);
+
+        string numberInput = Console.ReadLine();
+
+        while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
+        {
+            Console.WriteLine("\n|---> Invalid number <---|\n");
+            numberInput = Console.ReadLine();
+        }
+
+        int finalInput = Convert.ToInt32(numberInput);
+
+        return finalInput;
     }
 }

@@ -90,5 +90,24 @@ public static class DataAccess
 
         return codingSessions;
     }
+
+    public static int DeleteSession(int id)
+    {
+        using (SqliteConnection connection = new SqliteConnection(connectionString))
+        {
+            connection.Open();
+
+            SqliteCommand tableCommand = connection.CreateCommand();
+
+            tableCommand.CommandText =
+                $@"DELETE FROM CodingSessions WHERE Id = {id}";
+
+            int rowCount = tableCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+            return rowCount;
+        }
+    }
 }
 
