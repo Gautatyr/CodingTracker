@@ -35,13 +35,16 @@ public static class Menu
                 Console.ReadLine();
                 break;
             case "2":
+                string check;
                 do
                 {
-                    if (InsertSession() == "1")
+                    DisplaySessions(GetSessionsHistory());
+                    check = InsertSession();
+                    if (check == "1")
                     {
                         DisplaySessions(GetSessionsHistory(), "\nSession successfully added ! ");
                     }
-                } while (AskToContinueOperation() == 1);
+                } while (check != "0" && AskToContinueOperation() == 1);
 
                 break;
             case "3":
