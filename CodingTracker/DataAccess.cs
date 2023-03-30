@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
+﻿using System.Configuration;
 using Microsoft.Data.Sqlite;
-using Windows.Storage;
-using System.Drawing.Text;
 using CodingTracker.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using static CodingTracker.Helpers;
-using Windows.Storage.Pickers;
 
 namespace CodingTracker;
 
@@ -82,7 +73,7 @@ public static class DataAccess
 
             SqliteDataReader reader = tableCommand.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
                 while (reader.Read())
                 {
