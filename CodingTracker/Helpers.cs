@@ -90,17 +90,16 @@ public static class Helpers
     public static void DisplaySessions(List<CodingSessions> codingSessions, string message = "", bool skipReadLine = false)
     {
         Console.Clear();
-        Console.WriteLine("---------------------------------");
+        Console.WriteLine("------------------------------");
 
         foreach (CodingSessions session in codingSessions)
         {
-            Console.WriteLine($"|  {session.Id}  |  {session.Date:dd-MM-yy}  |  {session.TimeSpentCoding}   ");
-            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"  {session.Id}  |  {session.Date:dd-MM-yy}  |  {session.TimeSpentCoding}   ");
+            Console.WriteLine("------------------------------");
         }
 
         Console.WriteLine(message);
         if (skipReadLine == true) return;
-        Console.ReadLine();
     }
 
     public static int GetNumberInput(string message = "")
@@ -118,5 +117,16 @@ public static class Helpers
         int finalInput = Convert.ToInt32(numberInput);
 
         return finalInput;
+    }
+
+    public static int AskToContinueOperation()
+    {
+        Console.WriteLine("If you wish to continue this operation type 1, if not type 0");
+
+        if (GetNumberInput() == 1)
+        {
+            return 1;
+        }
+        return 0;
     }
 }
