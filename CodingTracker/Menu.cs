@@ -21,7 +21,7 @@ public static class Menu
         Console.WriteLine("- Type 4 to Update a session history.");
         Console.WriteLine(message);
 
-        string input = Console.ReadLine(); 
+        string input = Console.ReadLine();
 
         switch (input)
         {
@@ -42,7 +42,7 @@ public static class Menu
                         DisplaySessions(GetSessionsHistory(), "\nSession successfully added ! ");
                     }
                 } while (AskToContinueOperation() == 1);
-         
+
                 break;
             case "3":
                 int idDelete = 0;
@@ -80,8 +80,8 @@ public static class Menu
                     {
                         DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{idUpdate} has been updated !\n");
                     }
-                } while (menu != 0 && AskToContinueOperation() == 1 );
-                
+                } while (menu != 0 && AskToContinueOperation() == 1);
+
                 break;
             default:
                 displayMenu("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");
