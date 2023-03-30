@@ -34,3 +34,4 @@ Those functionnalities are:
 # Resources
 - Microsoft documentation
 - [ConsoleTableExt](https://github.com/minhhungit/ConsoleTableExt)
+- [The C# Academy for general guidance](https://www.thecsharpacademy.com/)
