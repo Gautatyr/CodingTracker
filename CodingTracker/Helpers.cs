@@ -96,7 +96,10 @@ public static class Helpers
     {
         Console.Clear();
 
-        ConsoleTableBuilder.From(codingSessions).ExportAndWriteLine();
+
+        ConsoleTableBuilder.From(codingSessions)
+            .WithColumn("Id", "Date", "Time spent coding")
+            .ExportAndWriteLine();
 
         Console.WriteLine(message);
         if (skipReadLine == true) return;

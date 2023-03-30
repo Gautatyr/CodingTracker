@@ -11,6 +11,7 @@ using CodingTracker.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using static CodingTracker.Helpers;
+using Windows.Storage.Pickers;
 
 namespace CodingTracker;
 
@@ -88,9 +89,9 @@ public static class DataAccess
                     codingSessions.Add(new CodingSessions
                     {
                         Id = reader.GetInt32(0),
-                        Date = DateTime.ParseExact(reader.GetString(1), "d-M-yy", new CultureInfo("en-US")),
+                        ShortDate = (DateTime.ParseExact(reader.GetString(1), "d-M-yy", new CultureInfo("en-US"))).ToShortDateString(),
                         TimeSpentCoding = reader.GetString(2)
-                    });
+                    }); ;
                 }
             }
             else
