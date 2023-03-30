@@ -11,14 +11,15 @@ public static class Helpers
 {
     public static string InputSessionDate()
     {
-        Console.WriteLine("\nPlease write the date of the session in the 'dd-mm-yy' format.\n");
+        Console.WriteLine("\nPlease write the date of the session in the 'dd-mm-yy' format, or type 0 to return to the main menu\n");
 
         string sessionDate = Console.ReadLine();
 
         while (!DateTime.TryParseExact(sessionDate, "d-M-yy", System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.None, out _))
+                System.Globalization.DateTimeStyles.None, out _)
+                && sessionDate != "0")
         {
-            Console.WriteLine("\n|---> Invalid Input ! Please use the 'dd-MM-yy' format and try again ! <---|\n");
+            Console.WriteLine("\n|---> Invalid Input ! Please use the 'dd-MM-yy' format and try again or type 0 to get back to the main menu ! <---|\n");
             sessionDate = Console.ReadLine();
         }
 
@@ -27,33 +28,39 @@ public static class Helpers
 
     public static string InputSessionTime()
     {
-        Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
+        Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
 
         string sessionStart = Console.ReadLine();
         DateTime sessionStartFormated;
 
         while (!DateTime.TryParseExact(sessionStart, "H:m", System.Globalization.CultureInfo.InvariantCulture,
-            System.Globalization.DateTimeStyles.None, out sessionStartFormated))
+            System.Globalization.DateTimeStyles.None, out sessionStartFormated)
+            && sessionStart != "0")
         {
             Console.Clear();
             Console.WriteLine("\n|---> Invalid Input ! <---|\n");
-            Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format\n");
+            Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
             sessionStart = Console.ReadLine();
         }
 
-        Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format\n");
+        if (sessionStart == "0") return sessionStart;
+
+        Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
 
         string sessionEnd = Console.ReadLine();
         DateTime sessionEndFormated;
 
         while (!DateTime.TryParseExact(sessionEnd, "H:m", System.Globalization.CultureInfo.InvariantCulture,
-            System.Globalization.DateTimeStyles.None, out sessionEndFormated))
+            System.Globalization.DateTimeStyles.None, out sessionEndFormated)
+            && sessionEnd != "0")
         {
             Console.Clear();
             Console.WriteLine("\n|---> Invalid Input ! <---|\n");
-            Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format\n");
+            Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
             sessionEnd = Console.ReadLine();
         }
+
+        if (sessionEnd == "0") return sessionEnd;
 
         double sessionDuration;
 

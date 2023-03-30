@@ -34,28 +34,41 @@ public static class Menu
                 DisplaySessions(GetSessionsHistory(), "\nPress Enter to go back to the menu");
                 break;
             case "2":
-                InsertSession();
-                DisplaySessions(GetSessionsHistory(), "\nSession successfully added ! Press Enter to go back to the main menu");
+                if (InsertSession() == "1")
+                {
+                    DisplaySessions(GetSessionsHistory(), "\nSession successfully added ! Press Enter to go back to the main menu");
+                }               
                 break;
             case "3":
-                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Delete\n", true);
+                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Delete, or type 0 to go back to the main menu\n", true);
                 int id = GetNumberInput();
-                while (DeleteSession(id) == 0)
+                while (DeleteSession(id) == 0 && id != 0)
                 {
                     Console.WriteLine($"\n|---> Record with Id {id} doesn't exist. Please retry. <---|\n");
-                    id = GetNumberInput("\nType in the id of the session you want to Delete\n");
+                    id = GetNumberInput("\nType in the id of the session you want to Delete, or 0 to get back to the main menu\n");
                 }
-                DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been deleted ! Press Enter to return to the main menu.\n");
+                if (id != 0)
+                {
+                    DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been deleted ! Press Enter to return to the main menu.\n");
+                }
                 break;
             case "4":
-                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Update\n", true);
+                DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Update, or 0 to get back to the main menu\n", true);
+
                 id = GetNumberInput();
-                while (UpdateSession(id) == 0)
+
+                int menu;
+
+                while (( menu = UpdateSession(id)) == 0 && id != 0)
                 {
                     Console.WriteLine($"\n|---> Record with Id {id} doesn't exist. Please retry. <---|\n");
-                    id = GetNumberInput("\nType in the id of the session you want to Update\n");
+                    id = GetNumberInput("\nType in the id of the session you want to Update, or 0 to get back to the main menu\n");
                 }
-                DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been updated ! Press Enter to return to the main menu.\n");
+
+                if (id != 0 && menu != 2)
+                {
+                    DisplaySessions(GetSessionsHistory(), $"\nThe session with id:{id} has been updated ! Press Enter to return to the main menu.\n");
+                }
                 break;
             default:
                 displayMenu("\n|---> Invalid Input ! Please type a number from 0 to 4 ! <---|\n");

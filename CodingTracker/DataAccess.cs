@@ -35,10 +35,17 @@ public static class DataAccess
         }
     }
 
-    public static void InsertSession()
+    public static string InsertSession()
     {
+        string operationComplete = "0";
+
         string date = InputSessionDate();
+
+        if (date == "0") return operationComplete;
+
         string timeSpentCoding = InputSessionTime();
+
+        if (timeSpentCoding == "0") return timeSpentCoding;
 
         using (SqliteConnection connection = new SqliteConnection(connectionString))
         {
@@ -51,8 +58,12 @@ public static class DataAccess
 
             tableCommand.ExecuteNonQuery();
 
+            operationComplete = "1";
+
             connection.Close();
         }
+
+        return operationComplete;
     }
 
     public static List<CodingSessions> GetSessionsHistory()
@@ -114,28 +125,33 @@ public static class DataAccess
     public static int UpdateSession(int id)
     {
         int checkQuery = 0;
-
-        using (SqliteConnection connection = new SqliteConnection(connectionString))
+        if (id != 0)
         {
-            connection.Open();
+            using (SqliteConnection connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
 
-            var checkCommand = connection.CreateCommand();
-            checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM CodingSessions WHERE Id = {id})";
-            
-            SqliteCommand tableCommand = connection.CreateCommand();
-            checkQuery = Convert.ToInt32(checkCommand.ExecuteScalar());
+                var checkCommand = connection.CreateCommand();
+                checkCommand.CommandText = $"SELECT EXISTS(SELECT 1 FROM CodingSessions WHERE Id = {id})";
 
-            string date = InputSessionDate();
-            string timeSpentCoding = InputSessionTime();
+                SqliteCommand tableCommand = connection.CreateCommand();
+                checkQuery = Convert.ToInt32(checkCommand.ExecuteScalar());
 
-            tableCommand.CommandText =
-                $@"UPDATE CodingSessions SET Date = '{date}', TimeSpentCoding = '{timeSpentCoding}' WHERE Id = {id}";
+                if (checkQuery == 0) return checkQuery;
 
-            tableCommand.ExecuteNonQuery();
+                string date = InputSessionDate();
+                if (date == "0") return 2;
+                string timeSpentCoding = InputSessionTime();
+                if (timeSpentCoding == "0") return 2;
 
-            connection.Close();
+                tableCommand.CommandText =
+                    $@"UPDATE CodingSessions SET Date = '{date}', TimeSpentCoding = '{timeSpentCoding}' WHERE Id = {id}";
+
+                tableCommand.ExecuteNonQuery();
+
+                connection.Close();
+            }
         }
-
         return checkQuery;
     }
 }
