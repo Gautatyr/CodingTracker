@@ -1,4 +1,5 @@
 ﻿using CodingTracker.Models;
+using ConsoleTableExt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,11 @@ public static class Helpers
         }
 
         TimeSpan hoursSpentCoding = TimeSpan.FromMinutes(sessionDuration);
-        string timeSpentCoding = $"{hoursSpentCoding.Hours}h{hoursSpentCoding.Minutes}mn";
+
+        string minutes = hoursSpentCoding.Minutes.ToString();
+        if (int.Parse(minutes) < 10) minutes = $"0{minutes}";
+
+        string timeSpentCoding = $"{hoursSpentCoding.Hours}h{minutes}mn";
 
         return timeSpentCoding;
     }
@@ -90,13 +95,8 @@ public static class Helpers
     public static void DisplaySessions(List<CodingSessions> codingSessions, string message = "", bool skipReadLine = false)
     {
         Console.Clear();
-        Console.WriteLine("------------------------------");
 
-        foreach (CodingSessions session in codingSessions)
-        {
-            Console.WriteLine($"  {session.Id}  |  {session.Date:dd-MM-yy}  |  {session.TimeSpentCoding}   ");
-            Console.WriteLine("------------------------------");
-        }
+        ConsoleTableBuilder.From(codingSessions).ExportAndWriteLine();
 
         Console.WriteLine(message);
         if (skipReadLine == true) return;
