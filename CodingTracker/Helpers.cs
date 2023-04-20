@@ -1,5 +1,6 @@
 ﻿using CodingTracker.Models;
 using ConsoleTableExt;
+using static CodingTracker.DataValidation;
 
 namespace CodingTracker;
 
@@ -11,9 +12,7 @@ public static class Helpers
 
         string sessionDate = Console.ReadLine();
 
-        while (!DateTime.TryParseExact(sessionDate, "d-M-yy", System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.None, out _)
-                && sessionDate != "0")
+        while (!IsValidDate(sessionDate) && sessionDate != "0")
         {
             Console.WriteLine("\n|---> Invalid Input ! Please use the 'dd-MM-yy' format and try again or type 0 to get back to the main menu ! <---|\n");
             sessionDate = Console.ReadLine();
@@ -29,15 +28,15 @@ public static class Helpers
         string sessionStart = Console.ReadLine();
         DateTime sessionStartFormated;
 
-        while (!DateTime.TryParseExact(sessionStart, "H:m", System.Globalization.CultureInfo.InvariantCulture,
-            System.Globalization.DateTimeStyles.None, out sessionStartFormated)
-            && sessionStart != "0")
+        while (!IsValidTime(sessionStart) && sessionStart != "0")
         {
             Console.Clear();
             Console.WriteLine("\n|---> Invalid Input ! <---|\n");
             Console.WriteLine("\nPlease write the time you started the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
             sessionStart = Console.ReadLine();
         }
+
+        sessionStartFormated = DateTime.Parse(sessionStart);
 
         if (sessionStart == "0") return sessionStart;
 
@@ -46,15 +45,15 @@ public static class Helpers
         string sessionEnd = Console.ReadLine();
         DateTime sessionEndFormated;
 
-        while (!DateTime.TryParseExact(sessionEnd, "H:m", System.Globalization.CultureInfo.InvariantCulture,
-            System.Globalization.DateTimeStyles.None, out sessionEndFormated)
-            && sessionEnd != "0")
+        while (!IsValidTime(sessionEnd) && sessionEnd != "0")
         {
             Console.Clear();
             Console.WriteLine("\n|---> Invalid Input ! <---|\n");
             Console.WriteLine("\nPlease write the time you ended the session in the 'hh:mm' format, or type 0 to go back to the main menu\n");
             sessionEnd = Console.ReadLine();
         }
+
+        sessionEndFormated = DateTime.Parse(sessionEnd);
 
         if (sessionEnd == "0") return sessionEnd;
 
@@ -82,46 +81,41 @@ public static class Helpers
         string minutes = hoursSpentCoding.Minutes.ToString();
         if (int.Parse(minutes) < 10) minutes = $"0{minutes}";
 
-        string timeSpentCoding = $"{hoursSpentCoding.Hours}h{minutes}mn";
-
-        return timeSpentCoding;
+        return $"{hoursSpentCoding.Hours}h{minutes}mn";
     }
 
     public static void DisplaySessions(List<CodingSessions> codingSessions, string message = "", bool skipReadLine = false)
     {
         Console.Clear();
 
-
         ConsoleTableBuilder.From(codingSessions)
             .WithColumn("Id", "Date", "Time spent coding")
             .ExportAndWriteLine();
 
         Console.WriteLine(message);
-        if (skipReadLine == true) return;
+        if (skipReadLine) return;
     }
 
-    public static int GetNumberInput(string message = "")
+    public static int InputNumber(string message = "")
     {
         Console.WriteLine(message);
 
         string numberInput = Console.ReadLine();
 
-        while (!Int32.TryParse(numberInput, out _) || Convert.ToInt32(numberInput) < 0)
+        while (!IsPositiveNumber(numberInput))
         {
             Console.WriteLine("\n|---> Invalid number <---|\n");
             numberInput = Console.ReadLine();
         }
 
-        int finalInput = Convert.ToInt32(numberInput);
-
-        return finalInput;
+        return Convert.ToInt32(numberInput);
     }
 
     public static int AskToContinueOperation()
     {
         Console.WriteLine("If you wish to continue this operation type 1, if not type 0");
 
-        if (GetNumberInput() == 1)
+        if (InputNumber() == 1)
         {
             return 1;
         }

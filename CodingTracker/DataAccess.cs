@@ -1,6 +1,6 @@
-﻿using System.Configuration;
+﻿using CodingTracker.Models;
 using Microsoft.Data.Sqlite;
-using CodingTracker.Models;
+using System.Configuration;
 using System.Globalization;
 using static CodingTracker.Helpers;
 
@@ -147,4 +147,3 @@ public static class DataAccess
         return checkQuery;
     }
 }
-
