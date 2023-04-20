@@ -47,7 +47,7 @@ public static class Menu
 
             case "3":
                 int idDelete = 0;
- 
+
                 do
                 {
                     DisplaySessions(GetSessionsHistory(), "\nType in the id of the session you want to Delete, or type 0 to go back to the main menu\n", true);
